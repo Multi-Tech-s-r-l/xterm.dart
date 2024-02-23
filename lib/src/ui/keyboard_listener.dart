@@ -12,7 +12,7 @@ class CustomKeyboardListener extends StatelessWidget {
 
   final void Function(String?) onComposing;
 
-  final KeyEventResult Function(FocusNode, RawKeyEvent) onKey;
+  final KeyEventResult Function(FocusNode, KeyEvent) onKey;
 
   const CustomKeyboardListener({
     Key? key,
@@ -24,7 +24,7 @@ class CustomKeyboardListener extends StatelessWidget {
     required this.onKey,
   }) : super(key: key);
 
-  KeyEventResult _onKey(FocusNode focusNode, RawKeyEvent keyEvent) {
+  KeyEventResult _onKey(FocusNode focusNode, KeyEvent keyEvent) {
     // First try to handle the key event directly.
     final handled = onKey(focusNode, keyEvent);
     if (handled == KeyEventResult.ignored) {
@@ -33,7 +33,7 @@ class CustomKeyboardListener extends StatelessWidget {
       if (keyEvent.character != null && keyEvent.character != "") {
         onInsert(keyEvent.character!);
         return KeyEventResult.handled;
-      } else if (keyEvent.data is RawKeyEventDataIos &&
+      }/* else if (keyEvent is RawKeyEventDataIos &&
           keyEvent is RawKeyDownEvent) {
         // On iOS keyEvent.character is always null. But data.characters
         // contains the the character(s) corresponding to the input.
@@ -48,7 +48,7 @@ class CustomKeyboardListener extends StatelessWidget {
           // charactersIgnoringModifiers.
           onComposing(data.charactersIgnoringModifiers);
         }
-      }
+      }*/
     }
     return handled;
   }
@@ -58,7 +58,7 @@ class CustomKeyboardListener extends StatelessWidget {
     return Focus(
       focusNode: focusNode,
       autofocus: autofocus,
-      onKey: _onKey,
+      onKeyEvent: _onKey,
       child: child,
     );
   }

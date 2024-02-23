@@ -129,7 +129,7 @@ class TerminalView extends StatefulWidget {
 
   /// Keyboard event handler of the terminal. This has higher priority than
   /// [shortcuts] and input handler of the terminal.
-  final FocusOnKeyCallback? onKey;
+  final FocusOnKeyEventCallback? onKey;
 
   /// True if no input should send to the terminal.
   final bool readOnly;
@@ -394,7 +394,7 @@ class TerminalViewState extends State<TerminalView> {
     setState(() => _composingText = text);
   }
 
-  KeyEventResult _handleKeyEvent(FocusNode focusNode, RawKeyEvent event) {
+  KeyEventResult _handleKeyEvent(FocusNode focusNode, KeyEvent event) {
     final resultOverride = widget.onKey?.call(focusNode, event);
     if (resultOverride != null && resultOverride != KeyEventResult.ignored) {
       return resultOverride;
@@ -410,7 +410,7 @@ class TerminalViewState extends State<TerminalView> {
       return shortcutResult;
     }
 
-    if (event is! RawKeyDownEvent) {
+    if (event is !KeyDownEvent) {
       return KeyEventResult.ignored;
     }
 
@@ -419,12 +419,18 @@ class TerminalViewState extends State<TerminalView> {
     if (key == null) {
       return KeyEventResult.ignored;
     }
-
+// Utilizza KeyEvent e LogicalKeyboardKey per determinare i tasti premuti
+    final isCtrlPressed = event.logicalKey == LogicalKeyboardKey.controlLeft ||
+        event.logicalKey == LogicalKeyboardKey.controlRight;
+    final isShiftPressed = event.logicalKey == LogicalKeyboardKey.shiftLeft ||
+        event.logicalKey == LogicalKeyboardKey.shiftRight;
+    final isAltPressed = event.logicalKey == LogicalKeyboardKey.altLeft ||
+        event.logicalKey == LogicalKeyboardKey.altRight;
     final handled = widget.terminal.keyInput(
       key,
-      ctrl: event.isControlPressed,
-      alt: event.isAltPressed,
-      shift: event.isShiftPressed,
+      ctrl: isCtrlPressed,
+      alt: isAltPressed,
+      shift: isShiftPressed,
     );
 
     if (handled) {
