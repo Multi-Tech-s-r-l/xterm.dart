@@ -419,7 +419,7 @@ class TerminalViewState extends State<TerminalView> {
     if (key == null) {
       return KeyEventResult.ignored;
     }
-// Utilizza KeyEvent e LogicalKeyboardKey per determinare i tasti premuti
+
     final isCtrlPressed = event.logicalKey == LogicalKeyboardKey.controlLeft ||
         event.logicalKey == LogicalKeyboardKey.controlRight;
     final isShiftPressed = event.logicalKey == LogicalKeyboardKey.shiftLeft ||

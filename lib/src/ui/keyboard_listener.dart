@@ -33,7 +33,9 @@ class CustomKeyboardListener extends StatelessWidget {
       if (keyEvent.character != null && keyEvent.character != "") {
         onInsert(keyEvent.character!);
         return KeyEventResult.handled;
-      }/* else if (keyEvent is RawKeyEventDataIos &&
+      }
+      //NO iOS to Test
+      /* else if (keyEvent is RawKeyEventDataIos &&
           keyEvent is RawKeyDownEvent) {
         // On iOS keyEvent.character is always null. But data.characters
         // contains the the character(s) corresponding to the input.
