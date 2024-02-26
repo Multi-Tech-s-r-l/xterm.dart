@@ -475,7 +475,7 @@ class RenderTerminal extends RenderBox with RelayoutWhenSystemFontsChangeMixin {
       PlaceholderAlignment.middle,
     );
     builder.pushStyle(
-      style.getTextStyle(textScaleFactor: _painter.textScaleFactor),
+      style.getTextStyle(textScaler: TextScaler.linear(_painter.textScaleFactor)),
     );
     builder.addText(composingText);
 

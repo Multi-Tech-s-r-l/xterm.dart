@@ -1,5 +1,6 @@
 import 'dart:ui';
 
+import 'package:flutter/rendering.dart';
 import 'package:xterm/src/ui/palette_builder.dart';
 import 'package:xterm/src/ui/paragraph_cache.dart';
 import 'package:xterm/xterm.dart';
@@ -58,7 +59,7 @@ class TerminalPainter {
     final textStyle = _textStyle.toTextStyle();
     final builder = ParagraphBuilder(textStyle.getParagraphStyle());
     builder.pushStyle(
-      textStyle.getTextStyle(textScaleFactor: _textScaleFactor),
+      textStyle.getTextStyle(textScaler: TextScaler.linear(_textScaleFactor)),
     );
     builder.addText(test);
 

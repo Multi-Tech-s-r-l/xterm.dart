@@ -27,7 +27,7 @@ class ParagraphCache {
     int key,
   ) {
     final builder = ParagraphBuilder(style.getParagraphStyle());
-    builder.pushStyle(style.getTextStyle(textScaleFactor: textScaleFactor));
+    builder.pushStyle(style.getTextStyle(textScaler: TextScaler.linear(textScaleFactor)));
     builder.addText(text);
 
     final paragraph = builder.build();

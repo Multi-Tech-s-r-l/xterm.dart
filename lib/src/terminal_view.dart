@@ -63,8 +63,7 @@ class TerminalView extends StatefulWidget {
   final TerminalStyle textStyle;
 
   /// The number of font pixels for each logical pixel. If null, will use the
-  /// [MediaQueryData.textScaleFactor] obtained from [MediaQuery], or 1.0 if
-  /// there is no [MediaQuery] in scope.
+  ///  1.0
   final double? textScaleFactor;
 
   /// Padding around the inner [Scrollable] widget.
@@ -234,7 +233,7 @@ class TerminalViewState extends State<TerminalView> {
           autoResize: widget.autoResize,
           textStyle: widget.textStyle,
           textScaleFactor:
-              widget.textScaleFactor ?? MediaQuery.textScaleFactorOf(context),
+              widget.textScaleFactor ?? 1.0,
           theme: widget.theme,
           focusNode: _focusNode,
           cursorType: widget.cursorType,
